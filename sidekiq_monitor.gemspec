@@ -13,6 +13,7 @@ Gem::Specification.new do |s|
   s.license       = 'MIT'
 
   s.add_dependency "sidekiq", ">= 2.2.1"
+  s.add_dependency "mongoid", ">= 6.0.2"
   s.add_dependency "slim"
   s.add_dependency "jquery-datatables-rails", ">= 2.1.10.0.2"
   s.add_dependency "rails-datatables"

@@ -6,7 +6,7 @@ module Sidekiq
       layout 'sidekiq/monitor/layouts/application'
 
       helper Sidekiq::Monitor::SidekiqHelper
-      
+
       def index
       end
 

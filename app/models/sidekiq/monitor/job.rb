@@ -1,10 +1,27 @@
 module Sidekiq
   module Monitor
-    class Job < ActiveRecord::Base
-      attr_accessible :args, :class_name, :enqueued_at, :finished_at, :jid, :name, :queue, :result, :retry, :started_at, :status if ActiveRecord::VERSION::MAJOR < 4 || ActiveRecord.constants.include?(:MassAssignmentSecurity)
+    class Job
+      include Mongoid::Document
+      include Mongoid::Timestamps
 
-      serialize :args
-      serialize :result
+      attr_accessor :args, :class_name,
+                      :enqueued_at, :finished_at, :jid,
+                      :name, :queue, :result, :retry,
+                      :started_at, :status
+
+      # serialize :args
+      # serialize :result
+
+      field :class_name,   type: String
+      field :queue,        type: String
+      field :jib,          type: String
+      field :retry,        type: Boolean
+      field :enqueued_at,  type: DateTime
+      field :started_at,   type: DateTime
+      field :status,       type: String
+      field :name,         type: String
+      field :args,         type: Object
+      field :result,       type: Object
 
       after_destroy :delete_sidekiq_job
 

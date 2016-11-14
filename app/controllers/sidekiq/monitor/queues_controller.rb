@@ -6,9 +6,9 @@ module Sidekiq
       layout 'sidekiq/monitor/layouts/application'
 
       helper Sidekiq::Monitor::SidekiqHelper
-      
+
       def index
-        @queues = Sidekiq::Monitor::Job.select('DISTINCT queue').collect { |job| job.queue }.sort
+        @queues = Sidekiq::Monitor::Job.all.collect { |job| job.queue }.sort
       end
     end
   end

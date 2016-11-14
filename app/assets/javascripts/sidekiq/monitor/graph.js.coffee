@@ -31,17 +31,17 @@ class SidekiqMonitor.Graph
       if document.hasFocus()
         @render()
     , @options.poll_interval
-    
+
   render: =>
     d3.json SidekiqMonitor.settings.api_url('jobs/graph'), (data) =>
 
-      # Clear out the previously rendered graph 
+      # Clear out the previously rendered graph
       $(@options.selector).text('')
 
       queues = data.queues_status_counts.map (queues_status_count) -> queues_status_count.queue
       graphs_config = SidekiqMonitor.settings.graphs || { 'ALL': null }
       graphs_config = @standardize_graphs_config(graphs_config, queues)
-      
+
       for index, graph_config of graphs_config
         graph_config['show_legend'] = true if index == '0'
         @render_graph(data, graph_config)
@@ -59,7 +59,7 @@ class SidekiqMonitor.Graph
       if graph_config['queues'].indexOf(queue_status_counts.queue) > -1
         queues_status_counts.push queue_status_counts
     data = queues_status_counts
-    
+
     @color_scale.domain(statuses)
 
     # Transpose the data into layers by queue

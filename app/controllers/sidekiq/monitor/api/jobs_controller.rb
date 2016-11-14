@@ -9,7 +9,7 @@ module Sidekiq
         end
 
         def graph
-          queues_jobs = Sidekiq::Monitor::Job.select('queue, status').all.group_by(&:queue)
+          queues_jobs = Sidekiq::Monitor::Job.all.group_by(&:queue)
           queues = []
           statuses = Sidekiq::Monitor::Job.statuses
           queues_status_counts = queues_jobs.collect do |queue, jobs|

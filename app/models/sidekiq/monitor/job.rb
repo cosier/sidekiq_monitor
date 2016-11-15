@@ -40,6 +40,10 @@ module Sidekiq
           @statuses.uniq!
         end
 
+        def find_by_jid(id)
+          where(jib: id).first
+        end
+
         def destroy_by_queue(queue, conditions={})
           jobs = where(conditions).where(status: 'queued', queue: queue).destroy_all
           jids = jobs.map(&:jid)
